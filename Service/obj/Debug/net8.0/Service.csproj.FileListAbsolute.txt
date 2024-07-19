@@ -11,3 +11,8 @@ C:\Projects\Side Projects\user-management-api-aspnet\Service\obj\Debug\net8.0\re
 C:\Projects\Side Projects\user-management-api-aspnet\Service\obj\Debug\net8.0\Service.pdb
 C:\Projects\Side Projects\user-management-api-aspnet\Service\obj\Debug\net8.0\ref\Service.dll
 C:\Projects\Side Projects\user-management-api-aspnet\Service\obj\Debug\net8.0\Service.csproj.AssemblyReference.cache
+C:\Projects\Side Projects\user-management-api-aspnet\Service\bin\Debug\net8.0\Core.dll
+C:\Projects\Side Projects\user-management-api-aspnet\Service\bin\Debug\net8.0\Repository.dll
+C:\Projects\Side Projects\user-management-api-aspnet\Service\bin\Debug\net8.0\Repository.pdb
+C:\Projects\Side Projects\user-management-api-aspnet\Service\bin\Debug\net8.0\Core.pdb
+C:\Projects\Side Projects\user-management-api-aspnet\Service\obj\Debug\net8.0\Service.csproj.Up2Date
