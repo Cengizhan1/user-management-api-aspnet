@@ -8,19 +8,23 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Cengi\\.nuget\\packages\\": {}
+    "C:\\Users\\cengizhan.yavuz\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Cengi\\source\\repos\\user-management-api-aspnet\\Core\\Core.csproj",
+      "projectUniqueName": "C:\\Projects\\Side Projects\\user-management-api-aspnet\\Core\\Core.csproj",
       "projectName": "Core",
-      "projectPath": "C:\\Users\\Cengi\\source\\repos\\user-management-api-aspnet\\Core\\Core.csproj",
-      "packagesPath": "C:\\Users\\Cengi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Cengi\\source\\repos\\user-management-api-aspnet\\Core\\obj\\",
+      "projectPath": "C:\\Projects\\Side Projects\\user-management-api-aspnet\\Core\\Core.csproj",
+      "packagesPath": "C:\\Users\\cengizhan.yavuz\\.nuget\\packages\\",
+      "outputPath": "C:\\Projects\\Side Projects\\user-management-api-aspnet\\Core\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Cengi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\cengizhan.yavuz\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -28,6 +32,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -40,6 +45,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -61,7 +71,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }
