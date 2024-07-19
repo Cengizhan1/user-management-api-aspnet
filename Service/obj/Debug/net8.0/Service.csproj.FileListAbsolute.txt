@@ -10,3 +10,4 @@ C:\Projects\Side Projects\user-management-api-aspnet\Service\obj\Debug\net8.0\Se
 C:\Projects\Side Projects\user-management-api-aspnet\Service\obj\Debug\net8.0\refint\Service.dll
 C:\Projects\Side Projects\user-management-api-aspnet\Service\obj\Debug\net8.0\Service.pdb
 C:\Projects\Side Projects\user-management-api-aspnet\Service\obj\Debug\net8.0\ref\Service.dll
+C:\Projects\Side Projects\user-management-api-aspnet\Service\obj\Debug\net8.0\Service.csproj.AssemblyReference.cache
