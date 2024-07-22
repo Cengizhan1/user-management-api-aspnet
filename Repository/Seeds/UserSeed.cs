@@ -20,7 +20,7 @@ namespace Repository.Seeds
                     Name = "Cengizhan",
                     Surname = "Yavuz",
                     Age = 25,
-                    isActive = true,
+                    IsActive = true,
                     CreatedDate = DateTime.Now
 
 
@@ -31,7 +31,7 @@ namespace Repository.Seeds
                     Name = "John",
                     Surname = "Doe",
                     Age = 29,
-                    isActive = false,
+                    IsActive = false,
                     CreatedDate = DateTime.Now
                 });
         }
