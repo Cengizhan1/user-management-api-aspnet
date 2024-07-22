@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
@@ -14,14 +15,16 @@ namespace Repository.Repositories
         public UserRepository(AppDbContext context) : base(context)
         {
         }
-        public Task<IEnumerable<User>> GetActiveUser()
+        public async Task<IEnumerable<User>> GetActiveUser()
         {
-            throw new NotImplementedException();
+            return await _context.Users.Where(x => x.IsActive == true).ToListAsync();
         }
 
-        public Task<IEnumerable<User>> GetUserGetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<User>> GetUserGetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            return await _context.Users
+                .Where(x => x.CreatedDate >= startDate && x.CreatedDate <= endDate)
+                .ToListAsync();
         }
     }
 }
