@@ -10,16 +10,16 @@ namespace API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IService<User,UserDto> service;
-        public UserController(IService<User,UserDto> service)
+        private readonly IUserService service;
+        public UserController(IUserService service)
         {
             this.service = service;
         }
 
         [HttpGet]
-        public Task<CustomResponseDto<IEnumerable<UserDto>>> GetAll()
+        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetAll()
         {
-            return service.GetAllAsync();
+            return await service.GetAllAsync();
         }
 
 
@@ -40,6 +40,18 @@ namespace API.Controllers
         public async Task<CustomResponseDto<NoContentDto>> Delete(int id)
         {
             return await service.RemoveAsync(id);
+        }
+
+        [HttpGet]
+        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetActiveUsers()
+        {
+            return await service.GetActiveUser();
+        }
+
+        [HttpGet]
+        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate)
+        {
+            return await service.GetUserGetUsersByCreatedDateBetween(startDate,endDate);
         }
 
     }
