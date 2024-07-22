@@ -10,7 +10,7 @@ namespace Core.Services
 {
     public interface IUserService : IService<User,UserDto>
     {
-        Task<CustomResponseDto<IEnumerable<User>>> GetActiveUser();
-        Task<CustomResponseDto<IEnumerable<User>>> GetUserGetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate);
+        Task<CustomResponseDto<IEnumerable<UserDto>>> GetActiveUser();
+        Task<CustomResponseDto<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate);
     }
 }
