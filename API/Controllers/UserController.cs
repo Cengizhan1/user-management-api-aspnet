@@ -36,20 +36,20 @@ namespace API.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<CustomResponseDto<NoContentDto>> Delete(int id)
         {
             return await service.RemoveAsync(id);
         }
 
-        [HttpGet]
+        [HttpGet("getActiveUsers")]
         public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetActiveUsers()
         {
             return await service.GetActiveUser();
         }
 
-        [HttpGet]
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate)
+        [HttpGet("getUsersByCreatedDateBetween")]
+        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate)
         {
             return await service.GetUserGetUsersByCreatedDateBetween(startDate,endDate);
         }
