@@ -7,7 +7,7 @@ using Core.UnitOfWorks;
 
 namespace Repository.UnitOfWorks
 {
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
 

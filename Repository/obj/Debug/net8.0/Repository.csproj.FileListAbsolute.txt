@@ -14,3 +14,5 @@ C:\Projects\Side Projects\user-management-api-aspnet\Repository\bin\Debug\net8.0
 C:\Projects\Side Projects\user-management-api-aspnet\Repository\bin\Debug\net8.0\Core.pdb
 C:\Projects\Side Projects\user-management-api-aspnet\Repository\obj\Debug\net8.0\Repository.csproj.AssemblyReference.cache
 C:\Projects\Side Projects\user-management-api-aspnet\Repository\obj\Debug\net8.0\Repository.csproj.Up2Date
+C:\Projects\Side Projects\user-management-api-aspnet\Repository\bin\Debug\net8.0\Repository.runtimeconfig.json
+C:\Projects\Side Projects\user-management-api-aspnet\Repository\obj\Debug\net8.0\Repository.genruntimeconfig.cache

@@ -12,7 +12,7 @@ using Core.UnitOfWorks;
 
 namespace Service.Services
 {
-    internal class UserService :  Service<User, UserDto>, IUserService
+    public class UserService :  Service<User, UserDto>, IUserService
     {
         private readonly IUserRepository _userRepository;
  
