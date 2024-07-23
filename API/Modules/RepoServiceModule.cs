@@ -23,6 +23,7 @@ namespace API.Modules
 
             builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerLifetimeScope();
 
+            builder.RegisterType<RabbitMqService>().As<IRabbitMqService>().InstancePerLifetimeScope();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
 
             var apiAssembly = Assembly.GetExecutingAssembly();
