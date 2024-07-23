@@ -46,6 +46,7 @@ namespace Repository
             {
                 if (item.Entity is BaseEntity entityReference)
                 {
+
                     switch (item.State)
                     {
                         case EntityState.Added:

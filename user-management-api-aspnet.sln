@@ -10,11 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{500D1FB3-0FB7-4EB7-8DDB-7A497894A7BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{500D1FB3-0FB7-4EB7-8DDB-7A497894A7BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{A6663F43-E79F-4248-978C-75D14DD3D144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{A6663F43-E79F-4248-978C-75D14DD3D144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{F1AE8C8F-A4AB-4118-9DAF-B6101819B227}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{F1AE8C8F-A4AB-4118-9DAF-B6101819B227}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserWorkerService", "UserWorkerService\UserWorkerService.csproj", "{57463D8B-C7AC-44B9-9B8E-D8313F5CB69D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +40,10 @@ Global
 		{F1AE8C8F-A4AB-4118-9DAF-B6101819B227}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1AE8C8F-A4AB-4118-9DAF-B6101819B227}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1AE8C8F-A4AB-4118-9DAF-B6101819B227}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57463D8B-C7AC-44B9-9B8E-D8313F5CB69D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57463D8B-C7AC-44B9-9B8E-D8313F5CB69D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57463D8B-C7AC-44B9-9B8E-D8313F5CB69D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57463D8B-C7AC-44B9-9B8E-D8313F5CB69D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

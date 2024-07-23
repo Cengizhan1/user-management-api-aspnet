@@ -146,3 +146,7 @@ C:\Projects\Side Projects\user-management-api-aspnet\API\bin\Debug\net8.0\runtim
 C:\Projects\Side Projects\user-management-api-aspnet\API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Projects\Side Projects\user-management-api-aspnet\API\bin\Debug\net8.0\Autofac.dll
 C:\Projects\Side Projects\user-management-api-aspnet\API\bin\Debug\net8.0\Autofac.Extensions.DependencyInjection.dll
+C:\Projects\Side Projects\user-management-api-aspnet\API\bin\Debug\net8.0\MassTransit.dll
+C:\Projects\Side Projects\user-management-api-aspnet\API\bin\Debug\net8.0\MassTransit.Abstractions.dll
+C:\Projects\Side Projects\user-management-api-aspnet\API\bin\Debug\net8.0\MassTransit.RabbitMqTransport.dll
+C:\Projects\Side Projects\user-management-api-aspnet\API\bin\Debug\net8.0\RabbitMQ.Client.dll
