@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "WECxWojam1w=",
+  "dgSpecHash": "QXxFJmfRSHw=",
   "success": true,
   "projectFilePath": "C:\\Projects\\Side Projects\\user-management-api-aspnet\\Service\\Service.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\cengizhan.yavuz\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\cengizhan.yavuz\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\cengizhan.yavuz\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\cengizhan.yavuz\\.nuget\\packages\\fluentvalidation\\11.9.2\\fluentvalidation.11.9.2.nupkg.sha512",
     "C:\\Users\\cengizhan.yavuz\\.nuget\\packages\\masstransit\\8.2.3\\masstransit.8.2.3.nupkg.sha512",
     "C:\\Users\\cengizhan.yavuz\\.nuget\\packages\\masstransit.abstractions\\8.2.3\\masstransit.abstractions.8.2.3.nupkg.sha512",
     "C:\\Users\\cengizhan.yavuz\\.nuget\\packages\\masstransit.rabbitmq\\8.2.3\\masstransit.rabbitmq.8.2.3.nupkg.sha512",
