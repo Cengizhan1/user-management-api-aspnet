@@ -22,15 +22,21 @@ namespace API.Controllers
             return await service.GetAllAsync();
         }
 
+        [HttpGet("{id}")]
+        public async Task<CustomResponseDto<UserDto>> GetById(int id)
+        {
+            return await service.GetByIdAsync(id);
+        }
+
 
         [HttpPost]
-        public async Task<CustomResponseDto<UserDto>> Save(UserDto request)
+        public async Task<CustomResponseDto<UserDto>> Save(UserCreateRequest request)
         {
             return await service.AddAsync(request);
         }
 
         [HttpPut]
-        public async Task<CustomResponseDto<NoContentDto>> Update(UserDto request)
+        public async Task<CustomResponseDto<NoContentDto>> Update(UserUpdateRequest request)
         {
             return await service.UpdateAsync(request);
         }
