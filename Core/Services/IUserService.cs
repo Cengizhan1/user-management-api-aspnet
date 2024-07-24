@@ -10,6 +10,9 @@ namespace Core.Services
 {
     public interface IUserService : IService<User,UserDto>
     {
+        Task<CustomResponseDto<UserDto>> AddAsync(UserCreateRequest dto);
+
+        Task<CustomResponseDto<NoContentDto>> UpdateAsync(UserUpdateRequest dto);
         Task<CustomResponseDto<IEnumerable<UserDto>>> GetActiveUser();
         Task<CustomResponseDto<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate);
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Dtos
 {
-    public class UserDto
+    public class UserUpdateRequest
     {
         public int Id { get; set; }
         public string Name { get; set; }
