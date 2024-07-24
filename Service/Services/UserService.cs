@@ -9,6 +9,7 @@ using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 using Core.UnitOfWorks;
+using Service.Exceptions;
 
 namespace Service.Services
 {
@@ -42,31 +43,41 @@ namespace Service.Services
             return CustomResponseDto<IEnumerable<UserDto>>.Success(200, userDtos);
         }
 
-        public override async Task<CustomResponseDto<UserDto>> AddAsync(UserDto dto)
+        public async Task<CustomResponseDto<UserDto>> AddAsync(UserCreateRequest dto)
         {
             var newUser = _mapper.Map<User>(dto);
             await _userRepository.AddAsync(newUser);
             await _unitOfWork.CommitAsync();
             var newDto = _mapper.Map<UserDto>(newUser);
-            _rabbitMqService.SendMessage("User created: " + UserDtoToString(newDto));
+            _rabbitMqService.SendMessage("User created: " + UserDtoToString(newUser));
             return CustomResponseDto<UserDto>.Success(200, newDto);
         }
 
-        public override async Task<CustomResponseDto<NoContentDto>> UpdateAsync(UserDto dto)
+        public async Task<CustomResponseDto<NoContentDto>> UpdateAsync(UserUpdateRequest dto)
         {
-            var user = _mapper.Map<User>(dto);
+            var user = await FindEntityById(dto.Id);
             _userRepository.Update(user);
 
             await _unitOfWork.CommitAsync();
 
-            _rabbitMqService.SendMessage("User Updated: " + UserDtoToString(dto));
+            _rabbitMqService.SendMessage("User Updated: " + UserDtoToString(user));
 
             return CustomResponseDto<NoContentDto>.Success(204);
         }
 
-        private string UserDtoToString(UserDto dto)
+        private string UserDtoToString(User user)
         {
-            return "Name :   " + dto.Name + " Surname :   " + dto.Surname + " Age :   " + dto.Age;
+            return "Name :   " + user.Name + " Surname :   " + user.Surname + " Age :   " + user.Age;
+        }
+
+        private async Task<User> FindEntityById(int id)
+        {
+            var entity = await _userRepository.GetByIdAsync(id);
+            if (entity == null)
+            {
+                throw new NotFoundException($"User with id {id} not found.");
+            }
+            return entity;
         }
 
     }

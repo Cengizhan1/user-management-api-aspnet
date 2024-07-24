@@ -6,6 +6,7 @@ using Core.Repositories;
 using Core.Services;
 using Core.UnitOfWorks;
 using Microsoft.EntityFrameworkCore;
+using Service.Exceptions;
 
 namespace Service.Services
 {
@@ -44,18 +45,14 @@ namespace Service.Services
 
         public async Task<CustomResponseDto<Dto>> GetByIdAsync(int id)
         {
-            var entity = await _repository.GetByIdAsync(id);
-
-            var dto = _mapper.Map<Dto>(entity);
+            var dto = _mapper.Map<Dto>(await FindEntityById(id));
 
             return CustomResponseDto<Dto>.Success(200, dto);
         }
 
         public async Task<CustomResponseDto<NoContentDto>> RemoveAsync(int id)
         {
-            var entity = await _repository.GetByIdAsync(id);
-
-            _repository.Remove(entity);
+            _repository.Remove(await FindEntityById(id));
             await _unitOfWork.CommitAsync();
 
             return CustomResponseDto<NoContentDto>.Success(204);
@@ -69,6 +66,16 @@ namespace Service.Services
             await _unitOfWork.CommitAsync();
 
             return CustomResponseDto<NoContentDto>.Success(204);
+        }
+
+        private async Task<Entity> FindEntityById(int id)
+        {
+            var entity = await _repository.GetByIdAsync(id);
+            if (entity == null)
+            {
+                throw new NotFoundException($"Entity with id {id} not found.");
+            }
+            return entity;
         }
     }
 }
