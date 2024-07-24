@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Service.Exceptions
+﻿namespace Service.Exceptions
 {
-    public class NotFoundExcepiton : Exception
+    public class NotFoundException : Exception
     {
-        public NotFoundExcepiton(string message) : base(message)
-        {
-
-        }
+        public NotFoundException(string message) : base(message) { }
     }
 }
