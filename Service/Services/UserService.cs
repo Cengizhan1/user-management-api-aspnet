@@ -67,7 +67,7 @@ namespace Service.Services
 
         private string UserDtoToString(User user)
         {
-            return "Name :   " + user.Name + " Surname :   " + user.Surname + " Age :   " + user.Age;
+            return "Name :   " + user.Name + "|   Surname :   " + user.Surname + "|   Age :   " + user.Age;
         }
 
         private async Task<User> FindEntityById(int id)
