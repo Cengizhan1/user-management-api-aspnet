@@ -1,1 +1,6 @@
 .vs/
+
+# Build dosyalarý ve klasörleri
+bin/
+obj/
+
