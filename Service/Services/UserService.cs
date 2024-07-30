@@ -9,43 +9,37 @@ using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 using Core.UnitOfWorks;
+using Microsoft.EntityFrameworkCore;
 using Service.Exceptions;
 
 namespace Service.Services
 {
-    public class UserService :  Service<User, UserDto>, IUserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         private readonly IRabbitMqService _rabbitMqService;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-
-        public UserService(IGenericRepository<User> repository, 
-            IUnitOfWork unitOfWork, 
-            IMapper mapper, 
-            IUserRepository userRepository,
-            IRabbitMqService rabbitMqService) 
-            : base(repository,unitOfWork,mapper)
+        public UserService(
+            IUserRepository repository,
+            IRabbitMqService rabbitMqService,
+            IUnitOfWork unitOfWork,
+            IMapper mapper)
         {
-            _userRepository = userRepository;
+            _userRepository = repository;
             _rabbitMqService = rabbitMqService;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetActiveUser()
+        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetAllAsync()
         {
-            var users =await _userRepository.GetActiveUser();
-            var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
+            var entities = await _userRepository.GetAll().ToListAsync();
 
-            return CustomResponseDto<IEnumerable<UserDto>>.Success(200, userDtos);
-        }
+            var dtos = _mapper.Map<IEnumerable<UserDto>>(entities);
 
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(
-            DateTime startDate, 
-            DateTime endDate)
-        {
-            var users = await _userRepository.GetUserGetUsersByCreatedDateBetween(startDate, endDate);
-            var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
-
-            return CustomResponseDto<IEnumerable<UserDto>>.Success(200, userDtos);
+            return CustomResponseDto<IEnumerable<UserDto>>.Success(200, dtos);
         }
 
         public async Task<CustomResponseDto<UserDto>> AddAsync(UserCreateRequest dto)
@@ -68,6 +62,38 @@ namespace Service.Services
             _rabbitMqService.SendMessage("User Updated: " + UserDtoToString(user));
 
             return CustomResponseDto<NoContentDto>.Success(204);
+        }
+        public async Task<CustomResponseDto<UserDto>> GetByIdAsync(int id)
+        {
+            var dto = _mapper.Map<UserDto>(await FindEntityById(id));
+
+            return CustomResponseDto<UserDto>.Success(200, dto);
+        }
+
+        public async Task<CustomResponseDto<NoContentDto>> RemoveAsync(int id)
+        {
+            _userRepository.Remove(await FindEntityById(id));
+            await _unitOfWork.CommitAsync();
+
+            return CustomResponseDto<NoContentDto>.Success(204);
+        }
+
+        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetActiveUser()
+        {
+            var users = await _userRepository.GetActiveUser();
+            var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
+
+            return CustomResponseDto<IEnumerable<UserDto>>.Success(200, userDtos);
+        }
+
+        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(
+            DateTime startDate,
+            DateTime endDate)
+        {
+            var users = await _userRepository.GetUserGetUsersByCreatedDateBetween(startDate, endDate);
+            var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
+
+            return CustomResponseDto<IEnumerable<UserDto>>.Success(200, userDtos);
         }
 
         private string UserDtoToString(User user)
