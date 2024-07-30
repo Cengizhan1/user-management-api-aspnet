@@ -55,7 +55,9 @@ namespace API.Controllers
         }
 
         [HttpGet("getUsersByCreatedDateBetween")]
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate)
+        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUsersByCreatedDateBetween(
+            DateTime startDate, 
+            DateTime endDate)
         {
             return await service.GetUserGetUsersByCreatedDateBetween(startDate,endDate);
         }

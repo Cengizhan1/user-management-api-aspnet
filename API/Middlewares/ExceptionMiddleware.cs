@@ -19,7 +19,7 @@ namespace API.Middlewares
             try
             {
                 await _next(httpContext);
-            }
+            }   
             catch (Exception ex)
             {
                 await HandleExceptionAsync(httpContext, ex);

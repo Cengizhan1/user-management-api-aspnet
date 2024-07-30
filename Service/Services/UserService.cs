@@ -19,7 +19,10 @@ namespace Service.Services
         private readonly IRabbitMqService _rabbitMqService;
 
 
-        public UserService(IGenericRepository<User> repository, IUnitOfWork unitOfWork, IMapper mapper, IUserRepository userRepository,
+        public UserService(IGenericRepository<User> repository, 
+            IUnitOfWork unitOfWork, 
+            IMapper mapper, 
+            IUserRepository userRepository,
             IRabbitMqService rabbitMqService) 
             : base(repository,unitOfWork,mapper)
         {
@@ -35,7 +38,9 @@ namespace Service.Services
             return CustomResponseDto<IEnumerable<UserDto>>.Success(200, userDtos);
         }
 
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate)
+        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(
+            DateTime startDate, 
+            DateTime endDate)
         {
             var users = await _userRepository.GetUserGetUsersByCreatedDateBetween(startDate, endDate);
             var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
@@ -67,7 +72,9 @@ namespace Service.Services
 
         private string UserDtoToString(User user)
         {
-            return "Name :   " + user.Name + "  |   Surname :   " + user.Surname + "  |   Age :   " + user.Age;
+            return "Name :   " + user.Name + "  |   " +
+                "Surname :   " + user.Surname + "  |   " +
+                "Age :   " + user.Age;
         }
 
         private async Task<User> FindEntityById(int id)

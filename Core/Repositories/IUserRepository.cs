@@ -11,6 +11,8 @@ namespace Core.Repositories
     public interface IUserRepository:IGenericRepository<User>
     {
         Task<IEnumerable<User>> GetActiveUser();
-        Task<IEnumerable<User>> GetUserGetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate);
+        Task<IEnumerable<User>> GetUserGetUsersByCreatedDateBetween(
+            DateTime startDate, 
+            DateTime endDate);
     }
 }

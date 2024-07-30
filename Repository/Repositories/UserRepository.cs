@@ -20,7 +20,9 @@ namespace Repository.Repositories
             return await _context.Users.Where(x => x.IsActive == true).ToListAsync();
         }
 
-        public async Task<IEnumerable<User>> GetUserGetUsersByCreatedDateBetween(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<User>> GetUserGetUsersByCreatedDateBetween(
+            DateTime startDate, 
+            DateTime endDate)
         {
             return await _context.Users
                 .Where(x => x.CreatedDate >= startDate && x.CreatedDate <= endDate)
