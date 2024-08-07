@@ -17,12 +17,12 @@ namespace Core.Services
 
         Task<CustomDataResponse<UserDto>> GetByIdAsync(int id);
 
-        Task<CustomDataResponse<IEnumerable<UserDto>>> GetAllAsync();
+        Task<CustomDataResponse<UserDto>> GetAllAsync();
 
         Task<CustomApiResponse> RemoveAsync(int id);
 
-        Task<CustomDataResponse<IEnumerable<UserDto>>> GetActiveUser();
-        Task<CustomDataResponse<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(
+        Task<CustomDataResponse<UserDto>> GetActiveUser();
+        Task<CustomDataResponse<UserDto>> GetUserGetUsersByCreatedDateBetween(
             DateTime startDate,
             DateTime endDate);
 

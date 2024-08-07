@@ -37,13 +37,13 @@ namespace Service.Services
             _mapper = mapper;
         }
 
-        public async Task<CustomDataResponse<IEnumerable<UserDto>>> GetAllAsync()
+        public async Task<CustomDataResponse<UserDto>> GetAllAsync()
         {
             var entities = await _userRepository.GetAll().ToListAsync();
 
             var dtos = _mapper.Map<IEnumerable<UserDto>>(entities);
 
-            return CommonResponseMapper.ToCustomDataResponse(dtos, true);
+            return CommonResponseMapper.ToCustomDataListResponse(dtos, true);
         }
 
         public async Task<CustomDataResponse<UserDto>> AddAsync(UserCreateRequest dto)
@@ -83,23 +83,23 @@ namespace Service.Services
             return CommonResponseMapper.ToCustomApiResponse(true, HttpStatusCode.OK);
         }
 
-        public async Task<CustomDataResponse<IEnumerable<UserDto>>> GetActiveUser()
+        public async Task<CustomDataResponse<UserDto>> GetActiveUser()
         {
             var users = await _userRepository.GetActiveUser();
             var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
 
-            return CommonResponseMapper.ToCustomDataResponse(userDtos, true);
+            return CommonResponseMapper.ToCustomDataListResponse(userDtos, true);
 
         }
 
-        public async Task<CustomDataResponse<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(
+        public async Task<CustomDataResponse<UserDto>> GetUserGetUsersByCreatedDateBetween(
             DateTime startDate,
             DateTime endDate)
         {
             var users = await _userRepository.GetUserGetUsersByCreatedDateBetween(startDate, endDate);
             var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
 
-            return CommonResponseMapper.ToCustomDataResponse(userDtos, true);
+            return CommonResponseMapper.ToCustomDataListResponse(userDtos, true);
         }
 
         private string UserDtoToString(User user)

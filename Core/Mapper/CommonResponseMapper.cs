@@ -34,12 +34,27 @@ namespace Core.Mapper
             return new CustomDataResponse<T>
             {
                 Data = request,
-                DataList = new(),
+                DataList = [],
                 HttpStatusCode = (int)httpStatusCode,
                 IsSuccessful = isSuccessful,
                 ErrorMessageList = errorMessageList,
             };
 
+        }
+
+        public static CustomDataResponse<T> ToCustomDataListResponse<T>(this IEnumerable<T> requestDataList, bool isSuccessful, HttpStatusCode httpStatusCode = HttpStatusCode.OK,
+    List<string> errorMessageList = null)
+        {
+            errorMessageList ??= new List<string>();
+
+            return new CustomDataResponse<T>
+            {
+                Data = default(T),
+                DataList = requestDataList,
+                HttpStatusCode = (int)httpStatusCode,
+                IsSuccessful = isSuccessful,
+                ErrorMessageList = errorMessageList,
+            };
         }
     }
 }
