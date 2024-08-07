@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+
+    public class UserController : CustomBaseController
     {
         private readonly IUserService service;
         public UserController(IUserService service)
@@ -17,49 +16,51 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return await service.GetAllAsync();
+            return ApiResponse(await service.GetAllAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<CustomResponseDto<UserDto>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return await service.GetByIdAsync(id);
+            return ApiResponse(await service.GetByIdAsync(id));
         }
 
 
         [HttpPost]
-        public async Task<CustomResponseDto<UserDto>> Save(UserCreateRequest request)
+        public async Task<IActionResult> Save(UserCreateRequest request)
         {
-            return await service.AddAsync(request);
+            return ApiResponse();
         }
 
         [HttpPut]
-        public async Task<CustomResponseDto<NoContentDto>> Update(UserUpdateRequest request)
+        public async Task<IActionResult> Update(UserUpdateRequest request)
         {
-            return await service.UpdateAsync(request);
+            await service.UpdateAsync(request);
+            return ApiResponse();
         }
 
 
         [HttpDelete("{id}")]
-        public async Task<CustomResponseDto<NoContentDto>> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return await service.RemoveAsync(id);
+            await service.RemoveAsync(id);
+            return ApiResponse();
         }
 
         [HttpGet("getActiveUsers")]
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetActiveUsers()
+        public async Task<IActionResult> GetActiveUsers()
         {
-            return await service.GetActiveUser();
+            return ApiResponse(await service.GetActiveUser());
         }
 
         [HttpGet("getUsersByCreatedDateBetween")]
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUsersByCreatedDateBetween(
+        public async Task<IActionResult> GetUsersByCreatedDateBetween(
             DateTime startDate, 
             DateTime endDate)
         {
-            return await service.GetUserGetUsersByCreatedDateBetween(startDate,endDate);
+            return ApiResponse(await service.GetUserGetUsersByCreatedDateBetween(startDate, endDate));
         }
 
     }
