@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.Dtos;
+using Core.Dtos.BaseControllerResponse;
 using Core.Entities;
+using Core.Mapper;
 using Core.Repositories;
 using Core.Services;
 using Core.UnitOfWorks;
@@ -21,6 +24,7 @@ namespace Service.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
+
         public UserService(
             IUserRepository repository,
             IRabbitMqService rabbitMqService,
@@ -33,26 +37,27 @@ namespace Service.Services
             _mapper = mapper;
         }
 
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetAllAsync()
+        public async Task<CustomDataResponse<IEnumerable<UserDto>>> GetAllAsync()
         {
             var entities = await _userRepository.GetAll().ToListAsync();
 
             var dtos = _mapper.Map<IEnumerable<UserDto>>(entities);
 
-            return CustomResponseDto<IEnumerable<UserDto>>.Success(200, dtos);
+            return CommonResponseMapper.ToCustomDataResponse(dtos, true);
         }
 
-        public async Task<CustomResponseDto<UserDto>> AddAsync(UserCreateRequest dto)
+        public async Task<CustomDataResponse<UserDto>> AddAsync(UserCreateRequest dto)
         {
             var newUser = _mapper.Map<User>(dto);
             await _userRepository.AddAsync(newUser);
             await _unitOfWork.CommitAsync();
             var newDto = _mapper.Map<UserDto>(newUser);
             _rabbitMqService.SendMessage("User created: " + UserDtoToString(newUser));
-            return CustomResponseDto<UserDto>.Success(200, newDto);
+            return CommonResponseMapper.ToCustomDataResponse(newDto, true);
+
         }
 
-        public async Task<CustomResponseDto<NoContentDto>> UpdateAsync(UserUpdateRequest dto)
+        public async Task<CustomApiResponse> UpdateAsync(UserUpdateRequest dto)
         {
             var user = await FindEntityById(dto.Id);
             _userRepository.Update(user);
@@ -61,39 +66,40 @@ namespace Service.Services
 
             _rabbitMqService.SendMessage("User Updated: " + UserDtoToString(user));
 
-            return CustomResponseDto<NoContentDto>.Success(204);
+            return CommonResponseMapper.ToCustomApiResponse(true, HttpStatusCode.Created);
         }
-        public async Task<CustomResponseDto<UserDto>> GetByIdAsync(int id)
+        public async Task<CustomDataResponse<UserDto>> GetByIdAsync(int id)
         {
             var dto = _mapper.Map<UserDto>(await FindEntityById(id));
 
-            return CustomResponseDto<UserDto>.Success(200, dto);
+            return CommonResponseMapper.ToCustomDataResponse(dto, true);
         }
 
-        public async Task<CustomResponseDto<NoContentDto>> RemoveAsync(int id)
+        public async Task<CustomApiResponse> RemoveAsync(int id)
         {
             _userRepository.Remove(await FindEntityById(id));
             await _unitOfWork.CommitAsync();
 
-            return CustomResponseDto<NoContentDto>.Success(204);
+            return CommonResponseMapper.ToCustomApiResponse(true, HttpStatusCode.OK);
         }
 
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetActiveUser()
+        public async Task<CustomDataResponse<IEnumerable<UserDto>>> GetActiveUser()
         {
             var users = await _userRepository.GetActiveUser();
             var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
 
-            return CustomResponseDto<IEnumerable<UserDto>>.Success(200, userDtos);
+            return CommonResponseMapper.ToCustomDataResponse(userDtos, true);
+
         }
 
-        public async Task<CustomResponseDto<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(
+        public async Task<CustomDataResponse<IEnumerable<UserDto>>> GetUserGetUsersByCreatedDateBetween(
             DateTime startDate,
             DateTime endDate)
         {
             var users = await _userRepository.GetUserGetUsersByCreatedDateBetween(startDate, endDate);
             var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
 
-            return CustomResponseDto<IEnumerable<UserDto>>.Success(200, userDtos);
+            return CommonResponseMapper.ToCustomDataResponse(userDtos, true);
         }
 
         private string UserDtoToString(User user)
