@@ -10,12 +10,15 @@ using Repository.UnitOfWorks;
 using Core.Repositories;
 using Repository.Repositories;
 using API.Middlewares;
+using Core.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.Configure<RabbitMqInfo>(builder.Configuration.GetSection("RabbitMq"));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSingleton<ExceptionMiddleware>();
 builder.Services.AddEndpointsApiExplorer();

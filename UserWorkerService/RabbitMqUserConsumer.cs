@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -8,26 +9,15 @@ namespace UserWorkerService
 {
     public class RabbitMqUserConsumer
     {
-        private readonly string _hostName;
-        private readonly string _queueName;
-        private readonly string _userName;
-        private readonly string _password;
-        private readonly string _virtualHost;
-        private readonly int _port;
+        private readonly RabbitMqInfo _rabbitMqInfo;
         private IConnection _connection;
         private IModel _channel;
 
         public event EventHandler<string> MessageReceived;
 
-        public RabbitMqUserConsumer(IConfiguration configuration)
+        public RabbitMqUserConsumer(IOptions<RabbitMqInfo> rabbitMqInfo)
         {
-            var rabbitMqConfig = configuration.GetSection("RabbitMq");
-            _hostName = rabbitMqConfig["HostName"];
-            _queueName = rabbitMqConfig["QueueName"];
-            _userName = rabbitMqConfig["UserName"];
-            _password = rabbitMqConfig["Password"];
-            _virtualHost = rabbitMqConfig["VirtualHost"];
-            _port = int.Parse(rabbitMqConfig["Port"]);
+            _rabbitMqInfo = rabbitMqInfo.Value;
             InitializeRabbitMq();
         }
 
@@ -35,17 +25,17 @@ namespace UserWorkerService
         {
             var factory = new ConnectionFactory()
             {
-                HostName = _hostName,
-                UserName = _userName,
-                Password = _password,
-                VirtualHost = _virtualHost,
-                Port = _port
+                HostName = _rabbitMqInfo.HostName,
+                UserName = _rabbitMqInfo.UserName,
+                Password = _rabbitMqInfo.Password,
+                VirtualHost = _rabbitMqInfo.VirtualHost,
+                Port = _rabbitMqInfo.Port
             };
 
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
 
-            _channel.QueueDeclare(queue: _queueName,
+            _channel.QueueDeclare(queue: _rabbitMqInfo.QueueName,
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
@@ -59,7 +49,7 @@ namespace UserWorkerService
                 MessageReceived?.Invoke(this, message);
             };
 
-            _channel.BasicConsume(queue: _queueName,
+            _channel.BasicConsume(queue: _rabbitMqInfo.QueueName,
                                  autoAck: true,
                                  consumer: consumer);
         }

@@ -1,49 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
+using Core.Dtos;
 using Core.Services;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 
 namespace Service.Services
 {
     public class RabbitMqService : IRabbitMqService
     {
-        private readonly string _hostName;
-        private readonly string _queueName;
-        private readonly string _userName;
-        private readonly string _password;
-        private readonly string _virtualHost;
-        private readonly int _port;
+        private readonly RabbitMqInfo _rabbitMqInfo;
 
-        public RabbitMqService(IConfiguration configuration)
+        public RabbitMqService(IOptions<RabbitMqInfo> rabbitMqInfo)
         {
-            var rabbitMqConfig = configuration.GetSection("RabbitMq");
-            _hostName = rabbitMqConfig["HostName"];
-            _queueName = rabbitMqConfig["QueueName"];
-            _userName = rabbitMqConfig["UserName"];
-            _password = rabbitMqConfig["Password"];
-            _virtualHost = rabbitMqConfig["VirtualHost"];
-            _port = int.Parse(rabbitMqConfig["Port"]);
+            _rabbitMqInfo = rabbitMqInfo.Value;
         }
 
         public void SendMessage(string message)
         {
             var factory = new ConnectionFactory()
             {
-                HostName = _hostName,
-                UserName = _userName,
-                Password = _password,
-                VirtualHost = _virtualHost,
-                Port = _port
+                HostName = _rabbitMqInfo.HostName,
+                UserName = _rabbitMqInfo.UserName,
+                Password = _rabbitMqInfo.Password,
+                VirtualHost = _rabbitMqInfo.VirtualHost,
+                Port = _rabbitMqInfo.Port
             };
 
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: _queueName,
+                channel.QueueDeclare(queue: _rabbitMqInfo.QueueName,
                                      durable: false,
                                      exclusive: false,
                                      autoDelete: false,
@@ -52,7 +38,7 @@ namespace Service.Services
                 var body = Encoding.UTF8.GetBytes(message);
 
                 channel.BasicPublish(exchange: "",
-                                     routingKey: _queueName,
+                                     routingKey: _rabbitMqInfo.QueueName,
                                      basicProperties: null,
                                      body: body);
             }
